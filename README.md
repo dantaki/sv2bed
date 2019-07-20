@@ -41,7 +41,7 @@ Notes:
 
     when using the -f option, pass each variable as a comma
     separated string.
-    for example:    sv2bed in.vcf -f %%CHROM,%%POS0,%%ID 
+    for example:    sv2bed in.vcf -f %CHROM,%POS0,%ID 
 
     when using the -i or -e options, format the argument as
     if you were using bcftools query or view.
