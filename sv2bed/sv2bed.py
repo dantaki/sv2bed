@@ -40,21 +40,22 @@ Notes:
 
     when using the -f option, pass each variable as a comma
     separated string.
-    for example:    sv2bed in.vcf -f %%CHROM,%%POS0,%%ID 
+    for example:    sv2bed in.vcf -f %CHROM,%POS0,%ID 
 
     when using the -i or -e options, format the argument as
     if you were using bcftools query or view.
     for example:    sv2bed in.vcf -e 'INFO/SVTYPE~"DEL"'
 
 '''.format(__version__)
-
+def exit():
+	sys.stderr.write(__usage__+'\n')
+	sys.exit(0)
 class Args(object):
 	def __init__(self):
 		parser = argparse.ArgumentParser(formatter_class=RawTextHelpFormatter, usage=__usage__, add_help=False)
 		parser.add_argument('vcf',type=str,nargs='?')	
-		if sys.argv[1] in ['-h','--help','-help']: 
-			sys.stderr.write(__usage__+'\n')
-			sys.exit(0)
+		if len(sys.argv)==1: exit()
+		if sys.argv[1] in ['-h','--help','-help']: exit()
 		args = parser.parse_args(sys.argv[1:2])
 		if args.vcf == None: self.vcf ='/dev/stdin'
 		else: self.vcf = args.vcf 
@@ -68,10 +69,7 @@ class Args(object):
 		
 		args = parser.parse_args(sys.argv[2:])
 	
-		if args.h == True:
-			sys.stderr.write(__usage__+'\n')
-			sys.exit(0)
-	
+		if args.h == True: exit()	
 		if args.f == None:
 			args.f = "%CHROM{0}%POS0{0}%INFO/END{0}%INFO/SVTYPE{1}".format("\\t","\\n")
 		else: 
