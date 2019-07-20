@@ -3,7 +3,9 @@
 
 # Install 
 
-`pip install `
+`pip install https://github.com/dantaki/sv2bed/releases/download/0.0.1/sv2bed-0.0.1.tar.gz `
+
+-----------------
 
 # Usage
 ```
